@@ -3,14 +3,14 @@
 #include <stdlib.h>
 
 /**
- * printIdentifiers - prints special characters
+ * Identifiers - prints special characters
  * @next: character after the %
  * @arg: argument for the indentifier
  * Return: the number of characters printed
  * (excluding the null byte used to end output to strings)
  */
 
-int printIdentifiers(char next, va_list arg)
+int Identifiers(char next, va_list arg)
 {
 	int functsIndex;
 
@@ -28,7 +28,7 @@ int printIdentifiers(char next, va_list arg)
 		{NULL, NULL}
 	};
 
-	for (functsIndex = 0; functs[functsIndex].indentifier != NULL; functsIndex++)
+	for (functsIndex = 0; functs[functsIndex].identifier != NULL; functsIndex++)
 	{
 		if (functs[functsIndex].indentifier[0] == next)
 			return (functs[functsIndex].printer(arg));
