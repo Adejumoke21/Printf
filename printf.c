@@ -3,14 +3,14 @@
 #include <stdlib.h>
 
 /**
- * Identifiers - prints special characters
+ * identifiers - prints special characters
  * @next: character after the %
  * @arg: argument for the indentifier
  * Return: the number of characters printed
  * (excluding the null byte used to end output to strings)
  */
 
-int Identifiers(char next, va_list arg)
+int identifiers(char next, va_list arg)
 {
 	int functsIndex;
 
@@ -28,7 +28,8 @@ int Identifiers(char next, va_list arg)
 		{NULL, NULL}
 	};
 
-	for (functsIndex = 0; functs[functsIndex].identifier != NULL; functsIndex++)
+	for 
+	(functsIndex = 0; functs[functsIndex].identifier != NULL; functsIndex++)
 	{
 		if (functs[functsIndex].indentifier[0] == next)
 			return (functs[functsIndex].printer(arg));
@@ -44,14 +45,47 @@ int Identifiers(char next, va_list arg)
 int _printf(const char *format, ...)
 {
 	/**
-	* to display the characters.
+	* to display the characters
+	* with different format cases.
 	*/
-	int i;
+	unsigned int i;
+	int identifierPrinted = 0, char_Printed = 0;
+	va_list arg;
+
+	va_start(arg, format);
+	if (format == NULL)
+		return (-1);
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
-		_putchar(format[i]);
-	}
+		if (format[i] != '%')
+		{
+			_putchar(format[i]);
+			charPrinted++;
+			continue;
+		}
+		if (format[i + 1] == '%')
+		{
+			_putchar('%');
+			charPrinted++;
+			i++;
+			continue;
+		}
+		if (format[i + 1] == '\0')
+			return (-1);
 
-	return (0);
+		identifierPrinted = identifiers(format[i + 1], arg);
+		if (identifierPrinted == -1 || identifierPrinted != 0)
+			i++;
+		if (identifierPrinted > 0)
+			charPrinted += identifierPrinted;
+
+		if (identifierPrinted == 0)
+		{
+			_putchar('%');
+			charPrinted++;
+		}
+	}
+	va_end(arg);
+	return (charPrinted);
 }
